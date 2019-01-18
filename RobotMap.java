@@ -34,6 +34,10 @@ public class RobotMap {
   public static Ultrasonic distanceSensor;
   public static AHRS navX;
 
+  // Sub Drive Train Devices
+  public static WPI_TalonSRX SubRightMotor;
+  public static WPI_TalonSRX SubLeftMotor;
+  
   // Lift Devices
   public static WPI_TalonSRX liftMotor1;
   public static WPI_TalonSRX liftMotor2;
@@ -62,12 +66,16 @@ public class RobotMap {
     motorFrontRight = new CANSparkMax(4, MotorType.kBrushless);
     distanceSensor = new Ultrasonic(1, 1);
 
+    // Sub Drive Train Devices
+    SubRightMotor = new WPI_TalonSRX(6);
+    SubLeftMotor = new WPI_TalonSRX(7);
+
     // Lift Devices
     liftMotor1 = new WPI_TalonSRX(5);
     liftMotor2 = new WPI_TalonSRX(6);
     liftMotors = new SpeedControllerGroup(liftMotor1, liftMotor2);
     try {
-      navX = new AHRS(SPI.Port.kMXP);
+      //navX = new AHRS(SPI.Port.kMXP);
     }
     catch(RuntimeException ex)
     {
