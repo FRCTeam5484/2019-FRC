@@ -1,12 +1,8 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import frc.robot.RobotMap;
 import frc.robot.Robot;
-import frc.robot.commands.*;
 
 public class LiftSubsystem extends PIDSubsystem{
     public static final double Floor = 90;

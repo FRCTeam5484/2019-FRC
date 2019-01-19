@@ -13,6 +13,7 @@ public class DriveTrainSubsystem extends Subsystem {
   }
   public void TeleOpDrive(){
     //driveTrain.driveCartesian(ySpeed, xSpeed, zRotation, gyroAngle);
-    RobotMap.driveTrain.driveCartesian(OI.driverOne.getRawAxis(1), OI.driverOne.getRawAxis(0), OI.driverOne.getRawAxis(4));
+    //RobotMap.driveTrain.driveCartesian(OI.driverOne.getRawAxis(4), OI.driverOne.getRawAxis(1), OI.driverOne.getRawAxis(0));
+    RobotMap.driveTrain.driveCartesian(-OI.driverOne.getRawAxis(0)*.7, OI.driverOne.getRawAxis(1)*.7, -OI.driverOne.getRawAxis(4)*.7, 0);
   }
 }

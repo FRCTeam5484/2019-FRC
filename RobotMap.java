@@ -54,47 +54,49 @@ public class RobotMap {
   public static PowerDistributionPanel pdp;
 
   public static void init() {
-    onBoardCompressor = new Compressor(0);
-    intakeArms = new Solenoid(0);
-    intakeCargo = new Solenoid(1);
-    intakePanel = new Solenoid(2);
-    climbBack = new DoubleSolenoid(3, 4);
-    climbFront = new DoubleSolenoid(5, 6);
-    climbLevel2LimitFront = new DigitalInput(0);
-    climbLevel2LimitBack = new DigitalInput(1);
+    //onBoardCompressor = new Compressor(0);
+    //intakeArms = new Solenoid(0);
+    //intakeCargo = new Solenoid(1);
+    //intakePanel = new Solenoid(2);
+    //climbBack = new DoubleSolenoid(3, 4);
+    //climbFront = new DoubleSolenoid(5, 6);
+    //climbLevel2LimitFront = new DigitalInput(0);
+    //climbLevel2LimitBack = new DigitalInput(1);
 
     // Drive Train Devices
-    motorBackLeft  = new CANSparkMax(5, MotorType.kBrushless);    
+    motorBackLeft  = new CANSparkMax(3, MotorType.kBrushless);    
     motorBackLeft.setInverted(true);
-    motorBackRight  = new CANSparkMax(6, MotorType.kBrushless);    
+    motorBackRight  = new CANSparkMax(5, MotorType.kBrushless);    
     motorBackRight.setInverted(true);
-    motorFrontLeft = new CANSparkMax(7, MotorType.kBrushless);    
-    motorFrontRight = new CANSparkMax(8, MotorType.kBrushless); 
+    motorFrontLeft = new CANSparkMax(4, MotorType.kBrushless);  
+    motorFrontLeft.setInverted(true);  
+    motorFrontRight = new CANSparkMax(6, MotorType.kBrushless); 
+    motorFrontRight.setInverted(true);
     driveTrain = new MecanumDrive(RobotMap.motorFrontLeft, RobotMap.motorBackLeft, RobotMap.motorFrontRight, RobotMap.motorBackRight);   
 
-    distanceSensor = new Ultrasonic(1, 1);
+    //distanceSensor = new Ultrasonic(2, 3);
 
     // Sub Drive Train Devices
-    subRightMotor = new WPI_TalonSRX(6);
-    subLeftMotor = new WPI_TalonSRX(7);
-    subDriveTrain = new DifferentialDrive(subLeftMotor, subRightMotor);
+    //subRightMotor = new WPI_TalonSRX(7);
+    //subLeftMotor = new WPI_TalonSRX(8);
+    //subDriveTrain = new DifferentialDrive(subLeftMotor, subRightMotor);
 
     // Lift Devices
-    liftMotor1 = new WPI_TalonSRX(5);
-    liftMotor2 = new WPI_TalonSRX(6);
-    liftMotors = new SpeedControllerGroup(liftMotor1, liftMotor2);
-    try {
+    //liftMotor1 = new WPI_TalonSRX(9);
+    //liftMotor2 = new WPI_TalonSRX(10);
+    //liftMotors = new SpeedControllerGroup(liftMotor1, liftMotor2);
+    //try {
       //navX = new AHRS(SPI.Port.kMXP);
-    }
-    catch(RuntimeException ex)
-    {
-      DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
-    }
-    liftBottomLimit = new DigitalInput(2);
-    liftTopLimit = new DigitalInput(3);
-    liftPOT = new AnalogPotentiometer(1, 108, 2);
+    //}
+    //catch(RuntimeException ex)
+    //{
+    //  DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
+    //}
+    //liftBottomLimit = new DigitalInput(2);
+    //liftTopLimit = new DigitalInput(3);
+    //liftPOT = new AnalogPotentiometer(1, 108, 2);
 
     // PDP
-    pdp = new PowerDistributionPanel();
+    //pdp = new PowerDistributionPanel();
   }
 }

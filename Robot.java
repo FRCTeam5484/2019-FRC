@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 10);
 
-    autoChooser.setDefaultOption("Default Auto", new ExampleCommand());
+    //autoChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autoChooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", autoChooser);
   }
