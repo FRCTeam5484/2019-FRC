@@ -10,10 +10,11 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class RobotMap {
   // Pneumatics Devices
@@ -31,6 +32,7 @@ public class RobotMap {
   public static CANSparkMax motorBackRight;
   public static CANSparkMax motorFrontLeft;
   public static CANSparkMax motorFrontRight;
+  public static MecanumDrive driveTrain;
   public static Ultrasonic distanceSensor;
   public static AHRS navX;
 
@@ -60,10 +62,14 @@ public class RobotMap {
     climbLevel2LimitBack = new DigitalInput(1);
 
     // Drive Train Devices
-    motorBackLeft = new CANSparkMax(1, MotorType.kBrushless);
-    motorBackRight = new CANSparkMax(2, MotorType.kBrushless);
-    motorFrontLeft = new CANSparkMax(3, MotorType.kBrushless);
-    motorFrontRight = new CANSparkMax(4, MotorType.kBrushless);
+    motorBackLeft  = new CANSparkMax(5, MotorType.kBrushless);    
+    motorBackLeft.setInverted(true);
+    motorBackRight  = new CANSparkMax(6, MotorType.kBrushless);    
+    motorBackRight.setInverted(true);
+    motorFrontLeft = new CANSparkMax(7, MotorType.kBrushless);    
+    motorFrontRight = new CANSparkMax(8, MotorType.kBrushless); 
+    driveTrain = new MecanumDrive(RobotMap.motorFrontLeft, RobotMap.motorBackLeft, RobotMap.motorFrontRight, RobotMap.motorBackRight);   
+
     distanceSensor = new Ultrasonic(1, 1);
 
     // Sub Drive Train Devices
