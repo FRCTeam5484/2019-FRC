@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class RobotMap {
@@ -37,8 +38,9 @@ public class RobotMap {
   public static AHRS navX;
 
   // Sub Drive Train Devices
-  public static WPI_TalonSRX SubRightMotor;
-  public static WPI_TalonSRX SubLeftMotor;
+  public static WPI_TalonSRX subRightMotor;
+  public static WPI_TalonSRX subLeftMotor;
+  public static DifferentialDrive subDriveTrain;
   
   // Lift Devices
   public static WPI_TalonSRX liftMotor1;
@@ -73,8 +75,9 @@ public class RobotMap {
     distanceSensor = new Ultrasonic(1, 1);
 
     // Sub Drive Train Devices
-    SubRightMotor = new WPI_TalonSRX(6);
-    SubLeftMotor = new WPI_TalonSRX(7);
+    subRightMotor = new WPI_TalonSRX(6);
+    subLeftMotor = new WPI_TalonSRX(7);
+    subDriveTrain = new DifferentialDrive(subLeftMotor, subRightMotor);
 
     // Lift Devices
     liftMotor1 = new WPI_TalonSRX(5);
