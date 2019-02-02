@@ -23,7 +23,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 /**
  * Add your docs here.
  */
-public class Vision extends Subsystem {
+public class VisionSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
