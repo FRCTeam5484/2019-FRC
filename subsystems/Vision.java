@@ -78,6 +78,7 @@ public class Vision extends Subsystem {
   public double RoundToCircle(double initialAngle) {
     initialAngle %= 360;
     return initialAngle;
+    
   }
   public double FlippedCircle(double angle) {
     if(angle > 180) {
