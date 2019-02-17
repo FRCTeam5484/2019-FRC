@@ -37,8 +37,8 @@ public class OI {
 
     //------ Driver Two ------\\
     // Top Cargo
-    b_topCargo_Grab.whenPressed(new c_topCargo_GrabBall()); // Grab
-    b_topCargo_Eject.whenPressed(new c_topCargo_EjectBall()); // Eject
+    b_topCargo_Grab.whileHeld(new c_topCargo_GrabBall()); // Grab
+    b_topCargo_Eject.whileHeld(new c_topCargo_EjectBall()); // Eject
     // Lift
     b_liftHeightLow.whenPressed(new c_lift_MoveToPosition(0)); // Low
     b_liftHeightMid.whenPressed(new c_lift_MoveToPosition(0)); // Mid
