@@ -3,10 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.c_bottomCargo_ToggleArms;
-import frc.robot.commands.c_climb_Extend;
-import frc.robot.commands.c_hatchPanel_ToggleArm;
-import frc.robot.commands.c_hatchPanel_ToggleGrip;
+import frc.robot.commands.*;
 import frc.robot.subsystems.Climb_SubSystem.Position;
 
 public class OI {
@@ -40,8 +37,8 @@ public class OI {
 
     //------ Driver Two ------\\
     // Top Cargo
-    b_topCargo_Grab.whenPressed(new c_topCargo_GrabBall); // Grab
-    b_topCargo_Eject.whenPressed(new c_topCargo_EjectBall); // Eject
+    b_topCargo_Grab.whenPressed(new c_topCargo_GrabBall()); // Grab
+    b_topCargo_Eject.whenPressed(new c_topCargo_EjectBall()); // Eject
     // Lift
     b_liftHeightLow.whenPressed(new c_lift_MoveToPosition(0)); // Low
     b_liftHeightMid.whenPressed(new c_lift_MoveToPosition(0)); // Mid

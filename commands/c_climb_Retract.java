@@ -21,7 +21,7 @@ public class c_climb_Retract extends Command {
 
   @Override
   protected void initialize() {
-    Robot.climb.retractLift(kPosition);
+    Robot.climb.retractClimb(kPosition);
   }
 
   @Override

@@ -21,7 +21,7 @@ public class c_climb_Extend extends Command {
 
   @Override
   protected void initialize() {
-    Robot.climb.extendLift(kPosition);
+    Robot.climb.extendClimb(kPosition);
   }
 
   @Override

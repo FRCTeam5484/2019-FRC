@@ -32,14 +32,14 @@ public class DriveTrain_SubSystem extends Subsystem {
 
   public void driveStraight(Vector2d dir, double speed) {
     //Normalize the Vector so that it has a length of 1
-    dir = Vector2d.normalize(dir);
+    //dir = Vector2d.normalize(dir);
     //Drive in the specified Direction
-    mecanumDriveTrain.driveCartesian(
-      dir.x * speed, 
-      -dir.y * speed, 
-      0, 
-      0
-    );
+    //mecanumDriveTrain.driveCartesian(
+    //  dir.x * speed, 
+    //  -dir.y * speed, 
+    //  0, 
+    //  0
+    //);
   }
 
   public void stopMotors() {
