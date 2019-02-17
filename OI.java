@@ -3,8 +3,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.*;
+import frc.robot.commands.c_topCargo_GrabBall;
+import frc.robot.commands.c_topCargo_EjectBall;
 import frc.robot.subsystems.Climb_SubSystem.Position;
+import frc.robot.commands.*;
 
 public class OI {
   // Driver One
@@ -12,6 +14,7 @@ public class OI {
   public JoystickButton b_toggleArms = new JoystickButton(driverOne, 2); // B Button
   public JoystickButton b_deployArm = new JoystickButton(driverOne, 6); // Right Bumper
   public JoystickButton b_gripPanel = new JoystickButton(driverOne, 5); // Left Bumper
+  public JoystickButton b_autoLineUp = new JoystickButton(driverOne, 1); // A Button
   
   // Driver Two
   public XboxController driverTwo = new XboxController(1); // Driver Two Controller
@@ -34,6 +37,7 @@ public class OI {
     b_toggleArms.whenPressed(new c_bottomCargo_ToggleArms());  // Intake Arms
     b_deployArm.whenPressed(new c_hatchPanel_ToggleArm()); // Panel Arm
     b_gripPanel.whenPressed(new c_hatchPanel_ToggleGrip()); // Grip
+    b_autoLineUp.whileHeld();
 
     //------ Driver Two ------\\
     // Top Cargo

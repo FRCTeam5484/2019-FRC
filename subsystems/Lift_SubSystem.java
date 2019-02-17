@@ -22,7 +22,6 @@ public class Lift_SubSystem extends PIDSubsystem {
 	public static final double BallMidHigh = 0.45;
   public static final double BallCargo = 0.58;
   public static final double BallHuman = 0.935;
-	
   
   private final AnalogPotentiometer liftPOT = RobotMap.liftPOT;	
   public static final SpeedController liftMotor = RobotMap.liftMotor;
@@ -40,9 +39,8 @@ public class Lift_SubSystem extends PIDSubsystem {
 
   public void teleOpLift() {
     System.out.println(String.valueOf(RobotMap.liftPOT.get()));
-    //System.out.println(String.valueOf(RobotMap.liftMotorEncoder.getPosition()));
     getPIDController().disable();
-    double speedValue = -Robot.oi.getDriverTwoStickValue(1)*.7;
+    double speedValue = -Robot.oi.getDriverTwoStickValue(1) * .7;
     double currentPosition = liftPOT.get();
 
     //Directional Pad Input
