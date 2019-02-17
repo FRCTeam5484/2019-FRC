@@ -21,7 +21,7 @@ public class Lift_SubSystem extends PIDSubsystem {
   public static final double BallLow = 0.71;
 	public static final double BallMidHigh = 0.45;
   public static final double BallCargo = 0.58;
-  public static final double BallHuman = 0.935;
+  public static final double BallHuman = 0.93;
 	
   
   private final AnalogPotentiometer liftPOT = RobotMap.liftPOT;	
@@ -39,10 +39,14 @@ public class Lift_SubSystem extends PIDSubsystem {
   }
 
   public void teleOpLift() {
+    if(RobotMap.liftPOT.get() < 0.93)
+    {
+      Robot.bottomCargo.retractArms();
+    }
     System.out.println(String.valueOf(RobotMap.liftPOT.get()));
     //System.out.println(String.valueOf(RobotMap.liftMotorEncoder.getPosition()));
     getPIDController().disable();
-    double speedValue = -Robot.oi.getDriverTwoStickValue(1)*.7;
+    double speedValue = -Robot.oi.getDriverTwoStickValue(1);//*.7;
     double currentPosition = liftPOT.get();
 
     //Directional Pad Input
@@ -67,7 +71,14 @@ public class Lift_SubSystem extends PIDSubsystem {
 
     if(speedValue > .3 && !isTopLimitReached() || speedValue < -.3 && !isBottomLimitReached())
     {
-      liftMotor.set(speedValue);
+      if(speedValue < 0)
+      {
+        liftMotor.set(speedValue*.5);
+      }
+      else{
+        liftMotor.set(speedValue);
+      }
+      
     }
     else if (RobotMap.liftPOT.get() < PanelHigh)
     {
@@ -89,7 +100,7 @@ public class Lift_SubSystem extends PIDSubsystem {
   }
 
   public void lowerLift() {
-    RobotMap.liftMotor.set(-0.5);
+    RobotMap.liftMotor.set(-0.2);
   }
 
   public void stopLift() {
