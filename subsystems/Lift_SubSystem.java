@@ -21,8 +21,12 @@ public class Lift_SubSystem extends PIDSubsystem {
   public static final double BallLow = 0.71;
 	public static final double BallMidHigh = 0.45;
   public static final double BallCargo = 0.58;
+<<<<<<< HEAD
   public static final double BallHuman = 0.93;
 	
+=======
+  public static final double BallHuman = 0.935;
+>>>>>>> b2f0da0a6c37aac78414a100a3dd9e0e7f58b02e
   
   private final AnalogPotentiometer liftPOT = RobotMap.liftPOT;	
   public static final SpeedController liftMotor = RobotMap.liftMotor;
@@ -44,9 +48,12 @@ public class Lift_SubSystem extends PIDSubsystem {
       Robot.bottomCargo.retractArms();
     }
     System.out.println(String.valueOf(RobotMap.liftPOT.get()));
-    //System.out.println(String.valueOf(RobotMap.liftMotorEncoder.getPosition()));
     getPIDController().disable();
+<<<<<<< HEAD
     double speedValue = -Robot.oi.getDriverTwoStickValue(1);//*.7;
+=======
+    double speedValue = -Robot.oi.getDriverTwoStickValue(1) * .7;
+>>>>>>> b2f0da0a6c37aac78414a100a3dd9e0e7f58b02e
     double currentPosition = liftPOT.get();
 
     //Directional Pad Input
