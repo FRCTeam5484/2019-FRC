@@ -14,27 +14,26 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class HatchPanel_SubSystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  public Solenoid panelGrip = RobotMap.panelGrip;
+  public Solenoid panelArm = RobotMap.panelArm;
 
   @Override
   public void initDefaultCommand() {
-    
   }
 
   public void grabPanel() {
-    RobotMap.panelGrip.set(true);
+    panelGrip.set(true);
   }
 
   public void releasePanel() {
-    RobotMap.panelGrip.set(false);
+    panelGrip.set(false);
   }
 
   public void deployArm() {
-    RobotMap.panelArm.set(true);
+    panelArm.set(true);
   }
 
   public void retractArm() {
-    RobotMap.panelArm.set(false);
+    panelArm.set(false);
   }
 }

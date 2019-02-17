@@ -9,49 +9,43 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- * Add your docs here.
- */
 public class Climb_SubSystem extends Subsystem {
 
   public enum Position {
     Front,
-    Back
+    Back,
+    All
   }
   
   @Override
   public void initDefaultCommand() {
   }
 
-  public void extendLift(Position position, boolean both) {
-    if(both) {
-      //Extend Both Solenoids
-    }
-    else {
-      switch(position) {
-        case Front:
-          //Extend Front Solenoid
-          break;
-        case Back:
-          //Extend Back Solenoid
-          break;
-      }
+  public void extendClimb(Position position) {
+    switch(position) {
+      case Front:
+        // Extend Front Solenoid
+        break;
+      case Back:
+        // Extend Back Solenoid
+        break;
+      case All:
+        //Extend Both Solenoids
+        break;
     }
   }
 
-  public void retractLift(Position position, boolean both) {
-    if(both) {
-      //Retract Both Solenoids
-    }
-    else {
-      switch(position) {
-        case Front:
-          //Retract Front Solenoid
-          break;
-        case Back:
-          //Retract Back Solenoid
-          break;
-      }
+  public void retractClimb(Position position) {
+    switch(position) {
+      case Front:
+        // Retract Front Solenoid
+        break;
+      case Back:
+        // Retract Back Solenoid
+        break;
+      case All:
+        // Retract Both Solenoids
+        break;
     }
   }
 }

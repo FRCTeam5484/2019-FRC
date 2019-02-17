@@ -15,21 +15,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
 public class SubDrive_SubSystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-
-  TalonSRX subDriveLeft = RobotMap.subDriveLeft;
-  TalonSRX subDriveRight = RobotMap.subDriveRight;
+  public TalonSRX subDriveLeft = RobotMap.subDriveLeft;
+  public TalonSRX subDriveRight = RobotMap.subDriveRight;
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand();
   }
 
-  public void teleOpDrive() {
+  public void teleOpSubDrive() {
     subDriveLeft.set(ControlMode.PercentOutput, -Robot.oi.driverTwo.getTriggerAxis(Hand.kLeft));
     subDriveRight.set(ControlMode.PercentOutput, -Robot.oi.driverTwo.getTriggerAxis(Hand.kRight));
   }

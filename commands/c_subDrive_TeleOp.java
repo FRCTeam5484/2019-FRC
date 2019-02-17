@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class c_hatchPanel_ReleasePanel extends Command {
-  public c_hatchPanel_ReleasePanel() {
-    requires(Robot.hatchPanel);
+public class c_subDrive_TeleOp extends Command {
+  public c_subDrive_TeleOp() {
+    requires(Robot.subDrive);
   }
 
   @Override
@@ -21,12 +21,12 @@ public class c_hatchPanel_ReleasePanel extends Command {
 
   @Override
   protected void execute() {
-    Robot.hatchPanel.releasePanel();
+      Robot.subDrive.teleOpSubDrive();
   }
 
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   @Override

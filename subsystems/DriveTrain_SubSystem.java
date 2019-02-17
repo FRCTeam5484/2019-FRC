@@ -23,17 +23,20 @@ public class DriveTrain_SubSystem extends Subsystem {
 
   public void mecanumDrive() {
     mecanumDriveTrain.driveCartesian(
-      Robot.oi.getDriverOneStickValue(0) * Robot.driveTrain.driveSpeed, 
-      -Robot.oi.getDriverOneStickValue(1) * Robot.driveTrain.driveSpeed, 
-      Robot.oi.getDriverOneStickValue(4) * Robot.driveTrain.driveSpeed, 
+      Robot.oi.getDriverOneStickValue(0) * driveSpeed, 
+      -Robot.oi.getDriverOneStickValue(1) * driveSpeed, 
+      Robot.oi.getDriverOneStickValue(4) * driveSpeed, 
       0
     );
   }
 
   public void driveStraight(Vector2d dir, double speed) {
+    //Normalize the Vector so that it has a length of 1
+    dir = Vector2d.normalize(dir);
+    //Drive in the specified Direction
     mecanumDriveTrain.driveCartesian(
-      dir.x * speed * driveSpeed, 
-      -dir.y * speed * driveSpeed, 
+      dir.x * speed, 
+      -dir.y * speed, 
       0, 
       0
     );

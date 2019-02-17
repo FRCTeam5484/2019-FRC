@@ -9,6 +9,8 @@ import frc.robot.commands.c_bottomCargo_TeleOp;
 import frc.robot.Robot;
 
 public class BottomCargo_SubSystem extends Subsystem {
+  public TalonSRX intakeMotors = RobotMap.intakeMotors;
+  public Solenoid intakeArms = RobotMap.intakeArms;
   
   @Override
   public void initDefaultCommand() {
@@ -16,19 +18,19 @@ public class BottomCargo_SubSystem extends Subsystem {
   }
 
   public void deployArms(){
-    RobotMap.intakeArms.set(true);
+    intakeArms.set(true);
   }
   public void retractArms(){
-    RobotMap.intakeArms.set(false);
+    intakeArms.set(false);
   }
   public void stopMotors() {
-    RobotMap.intakeMotors.set(ControlMode.PercentOutput, 0);
+    intakeMotors.set(ControlMode.PercentOutput, 0);
   }
   public void grabBall(){
-    RobotMap.intakeMotors.set(ControlMode.PercentOutput, -.5);
+    intakeMotors.set(ControlMode.PercentOutput, -.5);
   }
   public void ejectBall(){
-    RobotMap.intakeMotors.set(ControlMode.PercentOutput, .5);
+    intakeMotors.set(ControlMode.PercentOutput, .5);
   }
   public void teleOpIntake() {
     if(Robot.oi.driverOne.getTriggerAxis(Hand.kRight) > 0.25)

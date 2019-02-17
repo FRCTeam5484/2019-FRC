@@ -15,16 +15,13 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.c_lift_TeleOp;
 
-/**
- * Add your docs here.
- */
 public class Lift_SubSystem extends PIDSubsystem {
-  public static final double Floor = 101;
-	public static final double Switch = 75;
-	public static final double Portal = 75;
-	public static final double MidScale = 52;
-	public static final double HighScale = 41;
-  public static final double TopScale = 36;
+  public static final double Low = 101;
+	public static final double Low_Modifier = 75;
+	public static final double Mid = 75;
+	public static final double Mid_Modifier = 52;
+	public static final double High = 41;
+  public static final double High_Modifier = 36;
   
   private final AnalogPotentiometer liftPOT = RobotMap.liftPOT;	
   public static final SpeedController liftMotor = RobotMap.liftMotor;
@@ -41,6 +38,7 @@ public class Lift_SubSystem extends PIDSubsystem {
   }
 
   public void teleOpLift() {
+    getPIDController().disable();
     double speedValue = -Robot.oi.getDriverTwoStickValue(1);
     double currentPosition = liftPOT.get();
 
@@ -48,15 +46,15 @@ public class Lift_SubSystem extends PIDSubsystem {
     switch(Robot.oi.driverTwo.getPOV()) {
       case 0:
         System.out.println("Driver Two: D-Pad Up"); // High Modifer
-        moveToPosition(HighScale);
+        moveToPosition(High_Modifier);
         break;
       case 90:
         System.out.println("Driver Two: D-Pad Right"); // Mid Modifier
-        moveToPosition(MidScale);
+        moveToPosition(Mid_Modifier);
         break;
       case 180:
         System.out.println("Driver Two: D-Pad Down"); // Low Modifier
-        moveToPosition(Switch);
+        moveToPosition(Low_Modifier);
         break;
       /*case 270:
         System.out.println("Driver Two: D-Pad Left"); // Top Cargo
@@ -66,12 +64,10 @@ public class Lift_SubSystem extends PIDSubsystem {
 
     if(speedValue > .8 && !isTopLimitReached() || speedValue < -.8 && !isBottomLimitReached())
     {
-      getPIDController().disable();
       liftMotor.set(speedValue);
     }
     else if (currentPosition > 90)
     {
-      getPIDController().disable();
       liftMotor.set(0);
     }
     else
@@ -116,18 +112,18 @@ public class Lift_SubSystem extends PIDSubsystem {
     }
   }
   @Override
-    protected double returnPIDInput() {
-        return liftPOT.get();
+  protected double returnPIDInput() {
+      return liftPOT.get();
+  }
+  @Override
+  protected void usePIDOutput(double output) {
+    double reverseOutput = -output;
+    if(isTopLimitReached() && reverseOutput > 0 || isBottomLimitReached() && reverseOutput < 0)
+    {
+      stopLift();
     }
-    @Override
-    protected void usePIDOutput(double output) {
-    	double reverseOutput = -output;
-    	if(isTopLimitReached() && reverseOutput > 0 || isBottomLimitReached() && reverseOutput < 0)
-    	{
-    		stopLift();
-    	}
-    	else {
-    		liftMotor.pidWrite(reverseOutput);
-    	}
+    else {
+      liftMotor.pidWrite(reverseOutput);
     }
+  }
 }

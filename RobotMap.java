@@ -60,13 +60,13 @@ public class RobotMap {
     // Cargo Bottom Intake SubSystem
     intakeArms = new Solenoid(6);
     intakeMotors = new VictorSPX(6);
+    panelArm = new Solenoid(5);
+    panelGrip = new Solenoid(4);
     
     // Cargo Top Intake SubSystem
     topIntakeMotor = new TalonSRX(9);
     
-    // Pneumatics SubSystem
+    // Miscellaneous
     compressor = new Compressor(0);
-    panelArm = new Solenoid(5);
-    panelGrip = new Solenoid(4);
   }
 }

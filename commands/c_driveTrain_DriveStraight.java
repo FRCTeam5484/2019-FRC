@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.drive.Vector2d;
 import frc.robot.Robot;
 
 public class c_driveTrain_DriveStraight extends Command {
-  static Vector2d kDirection;
-  static double kSpeed;
+  public Vector2d kDirection;
+  public double kSpeed;
 
   public c_driveTrain_DriveStraight(Vector2d direction, double speed) {
     requires(Robot.driveTrain);
@@ -21,30 +21,24 @@ public class c_driveTrain_DriveStraight extends Command {
     kSpeed = speed;
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Robot.driveTrain.driveStraight(kDirection, kSpeed);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();
