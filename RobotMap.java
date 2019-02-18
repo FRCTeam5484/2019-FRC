@@ -2,12 +2,16 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class RobotMap {
@@ -41,6 +45,13 @@ public class RobotMap {
   public static Solenoid panelArm;
   public static Solenoid panelGrip;
 
+  // Climb SubSystem
+  public static DoubleSolenoid frontSolenoid;
+  public static DoubleSolenoid backSolenoid;
+
+  // NavX
+  public static AHRS navX;
+
   public static void init(){
     // Drive Train SubSystem
     driveTrain_frontRight = new CANSparkMax(2, MotorType.kBrushless);
@@ -65,8 +76,20 @@ public class RobotMap {
     
     // Cargo Top Intake SubSystem
     topIntakeMotor = new TalonSRX(9);
+
+    // Climb SubSystem
+    frontSolenoid = new DoubleSolenoid(0, 1);
+    backSolenoid = new DoubleSolenoid(2, 3);
     
     // Miscellaneous
     compressor = new Compressor(0);
+    try {
+      navX = new AHRS(SPI.Port.kMXP);
+      navX.reset();
+    }
+    catch(RuntimeException ex)
+    {
+      DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
+    }
   }
 }

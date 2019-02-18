@@ -1,12 +1,13 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.*;
-import frc.robot.subsystems.VisionSubsystem.LEDState;
+import frc.robot.subsystems.Vision_SubSystem.LEDState;
 
 public class DriveTrain_SubSystem extends Subsystem {
   public MecanumDrive mecanumDriveTrain = new MecanumDrive(
@@ -23,21 +24,38 @@ public class DriveTrain_SubSystem extends Subsystem {
   }  
 
   public void mecanumDrive() {
+    /*if(Robot.oi.actionBox.getRawButton(1))
+    {
+      driveStraight(new Vector2d(0, -1), 0.5);
+    }
+    else if(Robot.oi.actionBox.getRawButton(2))
+    {
+      driveStraight(new Vector2d(1, 0), 0.5);
+    }
+    else if(Robot.oi.actionBox.getRawButton(4))
+    {
+      driveStraight(new Vector2d(0, 1), 0.5);
+    }
+    else if(Robot.oi.actionBox.getRawButton(3))
+    {
+      driveStraight(new Vector2d(-1, 0), 0.5);
+    }*/
+    
     mecanumDriveTrain.driveCartesian(
       Robot.oi.getDriverOneStickValue(0) * driveSpeed, 
       -Robot.oi.getDriverOneStickValue(1) * driveSpeed, 
       Robot.oi.getDriverOneStickValue(4) * driveSpeed, 
       0
-    );
+    ); 
   }
 
   public void driveToTarget(double initialAngle) {
     // Turn the Limelight LED On
-    Robot.vision.setLED(LEDState.On);
+    Robot.vision.setLED(LEDState.Off);
 
     double kFORWARD_SPEED = 0.4; // Default Forward Speed 
     double kSTRAFE_SPEED = 0.6; // Default Strafing Speed
-    double kTURN_SPEED = 1.5; // Default Turning Speed
+    double kTURN_SPEED = 0.2; // Default Turning Speed
 
     // Read Limelight Values Periodically
     double x = Robot.vision.getOffset().x;
@@ -62,9 +80,9 @@ public class DriveTrain_SubSystem extends Subsystem {
       );
 
     // Turn to Desired Angle
-    if(Math.abs(dist) > 0.05) // If the distance between the Current and Desired angle is > 0.05 keep turning
+    if(Math.abs(dist) > 0.2) // If the distance between the Current and Desired angle is > 0.05 keep turning
     {
-      turn(kTURN_SPEED * dist * Robot.vision.getTurnDirection(currentAngle, desiredAngle));
+      turn(kTURN_SPEED * (dist / 1.5) * Robot.vision.getTurnDirection(currentAngle, desiredAngle));
     }
     else // Center on Target and Drive Forward
     { 
@@ -101,14 +119,14 @@ public class DriveTrain_SubSystem extends Subsystem {
     //Drive in the specified Direction
     mecanumDriveTrain.driveCartesian(
       dir.x * speed, 
-      -dir.y * speed, 
+      dir.y * speed, 
       0, 
       0
     );
   }
 
   public void turn(double speed) {
-    RobotMap.driveTrain.driveCartesian(
+    mecanumDriveTrain.driveCartesian(
       0, 
       0, 
       speed, 
@@ -118,5 +136,54 @@ public class DriveTrain_SubSystem extends Subsystem {
 
   public void stopMotors() {
     mecanumDriveTrain.driveCartesian(0, 0, 0);
+  }
+
+  public void testForward()
+  {
+    Timer time = new Timer();
+    time.start();
+    while(time.get() < 2)
+    {
+      RobotMap.driveTrain_frontLeft.set(.3);
+      RobotMap.driveTrain_backLeft.set(.3);
+      RobotMap.driveTrain_frontRight.set(-.3);
+      RobotMap.driveTrain_backRight.set(-.3);
+    }
+  }
+  public void testBack()
+  {
+    Timer time = new Timer();
+    time.start();
+    while(time.get() < 2)
+    {
+      RobotMap.driveTrain_frontLeft.set(-.3);
+      RobotMap.driveTrain_backLeft.set(-.3);
+      RobotMap.driveTrain_frontRight.set(.3);
+      RobotMap.driveTrain_backRight.set(.3);
+    }
+  }
+  public void testLeft()
+  {
+    Timer time = new Timer();
+    time.start();
+    while(time.get() < 2)
+    {
+      RobotMap.driveTrain_frontLeft.set(-.3);
+      RobotMap.driveTrain_backLeft.set(.3);
+      RobotMap.driveTrain_frontRight.set(-.3);
+      RobotMap.driveTrain_backRight.set(.3);
+    }
+  }
+  public void testRight()
+  {
+    Timer time = new Timer();
+    time.start();
+    while(time.get() < 2)
+    {
+      RobotMap.driveTrain_frontLeft.set(.3);
+      RobotMap.driveTrain_backLeft.set(-.3);
+      RobotMap.driveTrain_frontRight.set(.3);
+      RobotMap.driveTrain_backRight.set(-.3);
+    }
   }
 }

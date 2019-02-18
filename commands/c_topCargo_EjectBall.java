@@ -21,7 +21,7 @@ public class c_topCargo_EjectBall extends Command {
 
   @Override
   protected void execute() {
-      Robot.topCargo.ejectBall();
+    Robot.topCargo.ejectBall();
   }
 
   @Override

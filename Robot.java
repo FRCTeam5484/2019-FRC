@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.Vision_SubSystem.LEDState;
 
 public class Robot extends TimedRobot {
   public static DriveTrain_SubSystem driveTrain;
@@ -79,6 +80,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    vision.setLED(LEDState.Off);
     Scheduler.getInstance().run();
   }
 

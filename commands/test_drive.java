@@ -1,28 +1,20 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
-import frc.robot.subsystems.DriveTrain_SubSystem;
 
-public class c_driveTrain_DriveToTarget extends Command {
-  public static double initialAngle;
-
-  public c_driveTrain_DriveToTarget() {
+public class test_drive extends Command {
+  public test_drive() {
     requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    initialAngle = Robot.vision.roundToCircle(RobotMap.navX.getAngle());
-    if(initialAngle < 0)
-      initialAngle += 360;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.driveToTarget(initialAngle);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,6 +32,5 @@ public class c_driveTrain_DriveToTarget extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

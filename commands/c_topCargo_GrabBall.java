@@ -31,6 +31,7 @@ public class c_topCargo_GrabBall extends Command {
 
   @Override
   protected void end() {
+    Robot.topCargo.stopMotors();
   }
 
   @Override

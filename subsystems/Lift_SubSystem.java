@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -18,15 +11,11 @@ public class Lift_SubSystem extends PIDSubsystem {
   public static final double Ground = 0.98;
   public static final double PanelMid = 0.64;
   public static final double PanelHigh = 0.45;
+  public static final double BallHuman = 0.93;
   public static final double BallLow = 0.71;
 	public static final double BallMidHigh = 0.45;
   public static final double BallCargo = 0.58;
-<<<<<<< HEAD
-  public static final double BallHuman = 0.93;
-	
-=======
-  public static final double BallHuman = 0.935;
->>>>>>> b2f0da0a6c37aac78414a100a3dd9e0e7f58b02e
+  
   
   private final AnalogPotentiometer liftPOT = RobotMap.liftPOT;	
   public static final SpeedController liftMotor = RobotMap.liftMotor;
@@ -49,11 +38,7 @@ public class Lift_SubSystem extends PIDSubsystem {
     }
     System.out.println(String.valueOf(RobotMap.liftPOT.get()));
     getPIDController().disable();
-<<<<<<< HEAD
-    double speedValue = -Robot.oi.getDriverTwoStickValue(1);//*.7;
-=======
-    double speedValue = -Robot.oi.getDriverTwoStickValue(1) * .7;
->>>>>>> b2f0da0a6c37aac78414a100a3dd9e0e7f58b02e
+    double speedValue = -Robot.oi.getDriverTwoStickValue(1);
     double currentPosition = liftPOT.get();
 
     //Directional Pad Input

@@ -8,13 +8,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Climb_SubSystem extends Subsystem {
 
   public enum Position {
     Front,
     Back,
-    All
+    Both
   }
   
   @Override
@@ -22,15 +25,19 @@ public class Climb_SubSystem extends Subsystem {
   }
 
   public void extendClimb(Position position) {
+    //exampleDouble.set(DoubleSolenoid.Value.kOff);
+    //exampleDouble.set(DoubleSolenoid.Value.kForward);
+    //exampleDouble.set(DoubleSolenoid.Value.kReverse);
     switch(position) {
       case Front:
-        // Extend Front Solenoid
+        RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kReverse);
         break;
       case Back:
-        // Extend Back Solenoid
+        RobotMap.backSolenoid.set(DoubleSolenoid.Value.kReverse);
         break;
-      case All:
-        //Extend Both Solenoids
+      case Both:
+        RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kReverse);
+        RobotMap.backSolenoid.set(DoubleSolenoid.Value.kReverse);
         break;
     }
   }
@@ -38,13 +45,28 @@ public class Climb_SubSystem extends Subsystem {
   public void retractClimb(Position position) {
     switch(position) {
       case Front:
-        // Retract Front Solenoid
+        RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kForward);
         break;
       case Back:
-        // Retract Back Solenoid
+        RobotMap.backSolenoid.set(DoubleSolenoid.Value.kForward);
         break;
-      case All:
-        // Retract Both Solenoids
+      case Both:
+        RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kForward);
+        RobotMap.backSolenoid.set(DoubleSolenoid.Value.kForward);
+        break;
+    }
+  }
+  public void stopClimb(Position position) {
+    switch(position) {
+      case Front:
+        RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kOff);
+        break;
+      case Back:
+        RobotMap.backSolenoid.set(DoubleSolenoid.Value.kOff);
+        break;
+      case Both:
+        RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kOff);
+        RobotMap.backSolenoid.set(DoubleSolenoid.Value.kOff);
         break;
     }
   }

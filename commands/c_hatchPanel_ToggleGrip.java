@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -18,6 +20,17 @@ public class c_hatchPanel_ToggleGrip extends Command {
 
   @Override
   protected void initialize() {
+    Timer time = new Timer();
+    time.start();
+    /*while(time.get() < 1)
+    {
+      if(RobotMap.panelGrip.get() == false) {
+        Robot.oi.driverOne.setRumble(RumbleType.kLeftRumble, 1);
+        Robot.oi.driverOne.setRumble(RumbleType.kRightRumble, 1);
+      }
+      Robot.oi.driverOne.setRumble(RumbleType.kLeftRumble, 0);
+      Robot.oi.driverOne.setRumble(RumbleType.kRightRumble, 0);
+    }*/
   }
 
   @Override

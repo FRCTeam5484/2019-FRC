@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.*;
 import frc.robot.RobotMap;
 import frc.robot.Robot;
 
@@ -25,7 +26,7 @@ public class SubDrive_SubSystem extends Subsystem {
   }
 
   public void teleOpSubDrive() {
-    subDriveLeft.set(ControlMode.PercentOutput, -Robot.oi.driverTwo.getTriggerAxis(Hand.kLeft));
+    subDriveLeft.set(ControlMode.PercentOutput, Robot.oi.driverTwo.getTriggerAxis(Hand.kLeft));
     subDriveRight.set(ControlMode.PercentOutput, -Robot.oi.driverTwo.getTriggerAxis(Hand.kRight));
   }
 }

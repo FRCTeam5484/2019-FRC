@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.Vision_SubSystem.LEDState;
 
 public class c_driveTrain_TeleOpMode extends Command {
   public c_driveTrain_TeleOpMode() {
@@ -17,6 +18,7 @@ public class c_driveTrain_TeleOpMode extends Command {
 
   @Override
   protected void initialize() {
+    Robot.vision.setLED(LEDState.Off);
   }
 
   @Override

@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.Vector2d;
-import frc.robot.commands.vision_Default;
 
 import java.lang.Object;
 import java.util.Arrays;
@@ -17,11 +16,11 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-public class VisionSubsystem extends Subsystem {
+public class Vision_SubSystem extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new vision_Default());
+    //setDefaultCommand(new vision_Default());
   }
 
   //------------------------------------------\\
@@ -30,7 +29,7 @@ public class VisionSubsystem extends Subsystem {
   // 2 - Force Blink
   // 3 - Force On
   //------------------------------------------\\
-
+  
   public enum LEDState {
     Default,
     On,
@@ -54,10 +53,11 @@ public class VisionSubsystem extends Subsystem {
         ledStatus = 2;
         break;
     }
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(ledStatus);
   }
 
   public double getArea () {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-");
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry ta = table.getEntry("ta");
 
     double area = ta.getDouble(0.0);
@@ -65,7 +65,7 @@ public class VisionSubsystem extends Subsystem {
     return area;
   }
   public Vector2d getOffset () {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-");
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
 
@@ -82,7 +82,7 @@ public class VisionSubsystem extends Subsystem {
     double[] distances = new double[angles.length];
     //Calculating Distances between Angles
     for(int i = 0; i < angles.length; i++) {
-      distances[i] = Dist2D(AngleTo2D(currentAngle), AngleTo2D(angles[i]));
+      distances[i] = dist2D(angleTo2D(currentAngle), angleTo2D(angles[i]));
     }
     //Sorting Distances Least to Greatest
     double[] sortedDistances = Arrays.copyOf(distances, distances.length);
