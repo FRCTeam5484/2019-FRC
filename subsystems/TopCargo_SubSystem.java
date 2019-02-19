@@ -15,10 +15,10 @@ public class TopCargo_SubSystem extends Subsystem {
   }
 
   public void grabBall() {
-    topIntakeMotor.set(ControlMode.PercentOutput, 0.8);
+    topIntakeMotor.set(ControlMode.PercentOutput, -0.8);
   }
   public void ejectBall() {
-    topIntakeMotor.set(ControlMode.PercentOutput, -0.5);
+    topIntakeMotor.set(ControlMode.PercentOutput, 0.5);
   }
   public void stopMotors() {
     topIntakeMotor.set(ControlMode.PercentOutput, 0);

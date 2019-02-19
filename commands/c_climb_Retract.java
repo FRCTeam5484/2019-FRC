@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.subsystems.Climb_SubSystem.Position;
 
 public class c_climb_Retract extends Command {
@@ -35,9 +36,11 @@ public class c_climb_Retract extends Command {
 
   @Override
   protected void end() {
+    Robot.climb.stopClimb(kPosition);
   }
 
   @Override
   protected void interrupted() {
+    end();
   }
 }

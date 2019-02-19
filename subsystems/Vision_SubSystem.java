@@ -55,22 +55,22 @@ public class Vision_SubSystem extends Subsystem {
     }
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(ledStatus);
   }
-
+  public boolean getTarget() {
+    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    if(tv < 1.0) {
+      return false;
+    } 
+    else {
+      return true;
+    }
+  }
   public double getArea () {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry ta = table.getEntry("ta");
-
-    double area = ta.getDouble(0.0);
-    
-    return area;
+    double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+    return ta;
   }
   public Vector2d getOffset () {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
+    double x = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    double y = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     
     return new Vector2d(x, y);
   }
@@ -102,9 +102,9 @@ public class Vision_SubSystem extends Subsystem {
   public double getTurnDirection (double currentAngle, double desiredAngle) {
     if(currentAngle != desiredAngle) {
       double difference = currentAngle - desiredAngle;
-      return difference / Math.abs(difference);
+      return (difference / Math.abs(difference)) * -1;
     }
-    else if (currentAngle < desiredAngle / 3) {
+    if (currentAngle < desiredAngle / 3) {
       return 1;
     }
     else {

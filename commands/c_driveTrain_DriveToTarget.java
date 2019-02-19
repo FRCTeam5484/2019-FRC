@@ -3,6 +3,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.DriveTrain_SubSystem;
+import frc.robot.subsystems.Vision_SubSystem.LEDState;
 
 public class c_driveTrain_DriveToTarget extends Command {
   public static double initialAngle;
@@ -14,6 +15,7 @@ public class c_driveTrain_DriveToTarget extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    //Robot.vision.setLED(LEDState.On);
     initialAngle = Robot.vision.roundToCircle(RobotMap.navX.getAngle());
     if(initialAngle < 0)
       initialAngle += 360;

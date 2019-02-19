@@ -26,7 +26,7 @@ public class SubDrive_SubSystem extends Subsystem {
   }
 
   public void teleOpSubDrive() {
-    subDriveLeft.set(ControlMode.PercentOutput, Robot.oi.driverTwo.getTriggerAxis(Hand.kLeft));
-    subDriveRight.set(ControlMode.PercentOutput, -Robot.oi.driverTwo.getTriggerAxis(Hand.kRight));
+    subDriveLeft.set(ControlMode.PercentOutput, Robot.oi.actionBox.getTriggerAxis(Hand.kLeft));
+    subDriveRight.set(ControlMode.PercentOutput, -Robot.oi.actionBox.getTriggerAxis(Hand.kRight));
   }
 }

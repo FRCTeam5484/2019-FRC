@@ -8,14 +8,13 @@ import frc.robot.RobotMap;
 import frc.robot.commands.c_lift_TeleOp;
 
 public class Lift_SubSystem extends PIDSubsystem {
-  public static final double Ground = 0.98;
-  public static final double PanelMid = 0.64;
-  public static final double PanelHigh = 0.45;
-  public static final double BallHuman = 0.93;
-  public static final double BallLow = 0.71;
-	public static final double BallMidHigh = 0.45;
-  public static final double BallCargo = 0.58;
-  
+  public static double Ground = 0.98;
+  public static double PanelMid = 0.64;
+  public static double PanelHigh = 0.45;
+  public static double BallHuman = 0.93;
+  public static double BallLow = 0.71;
+	public static double BallMidHigh = 0.45;
+  public static double BallCargo = 0.58;
   
   private final AnalogPotentiometer liftPOT = RobotMap.liftPOT;	
   public static final SpeedController liftMotor = RobotMap.liftMotor;
@@ -36,7 +35,7 @@ public class Lift_SubSystem extends PIDSubsystem {
     {
       Robot.bottomCargo.retractArms();
     }
-    System.out.println(String.valueOf(RobotMap.liftPOT.get()));
+    //System.out.println(String.valueOf(RobotMap.liftPOT.get()));
     getPIDController().disable();
     double speedValue = -Robot.oi.getDriverTwoStickValue(1);
     double currentPosition = liftPOT.get();
@@ -44,31 +43,27 @@ public class Lift_SubSystem extends PIDSubsystem {
     //Directional Pad Input
     switch(Robot.oi.driverTwo.getPOV()) {
       case 0:
-        //System.out.println("Driver Two: D-Pad Up"); // High Modifer
-        //moveToPosition(High_Modifier);
+        moveToPosition(PanelHigh); // Up
         break;
       case 90:
-        //System.out.println("Driver Two: D-Pad Right"); // Mid Modifier
-        //moveToPosition(Mid_Modifier);
+        moveToPosition(PanelMid); // Right
         break;
       case 180:
-        //System.out.println("Driver Two: D-Pad Down"); // Low Modifier
-        //moveToPosition(Low_Modifier);
+        moveToPosition(Ground); // Down
         break;
-      /*case 270:
-        System.out.println("Driver Two: D-Pad Left"); // Top Cargo
-        moveToPosition();
-        break;*/
+      case 270:
+        moveToPosition(BallHuman); // Left
+        break;
     }
 
     if(speedValue > .3 && !isTopLimitReached() || speedValue < -.3 && !isBottomLimitReached())
     {
       if(speedValue < 0)
       {
-        liftMotor.set(speedValue*.5);
+        liftMotor.set(-speedValue*.5);
       }
       else{
-        liftMotor.set(speedValue);
+        liftMotor.set(-speedValue);
       }
       
     }
@@ -83,6 +78,7 @@ public class Lift_SubSystem extends PIDSubsystem {
   }
 
   public void moveToPosition(double desiredPosition) {
+    getPIDController().enable();
     Robot.lift.enable();
    	Robot.lift.setSetpoint(desiredPosition);
   }

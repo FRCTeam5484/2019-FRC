@@ -23,7 +23,7 @@ public class c_hatchPanel_ToggleArm extends Command {
   @Override
   protected void execute() {
     if(RobotMap.panelArm.get() == true) {
-      RobotMap.panelGrip.set(false);
+       RobotMap.panelGrip.set(false);
     }
     RobotMap.panelArm.set(!RobotMap.panelArm.get());
   }

@@ -9,36 +9,41 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Climb_SubSystem.Position;
+import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-public class c_climb_Extend extends Command {
-  static Position kPosition;
-
-  public c_climb_Extend(Position position) {
-    requires(Robot.climb);
-    kPosition = position;
+public class cRetractBoth extends Command {
+  public cRetractBoth() {
+    requires(Robot.lift);
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.climb.extendClimb(kPosition);
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.climb.retractClimbFront();
+    Robot.climb.retractClimbBack();
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.climb.stopClimb(kPosition);
+    RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kOff);
+    RobotMap.backSolenoid.set(DoubleSolenoid.Value.kOff);
   }
 
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();

@@ -28,6 +28,10 @@ public class Climb_SubSystem extends Subsystem {
     //exampleDouble.set(DoubleSolenoid.Value.kOff);
     //exampleDouble.set(DoubleSolenoid.Value.kForward);
     //exampleDouble.set(DoubleSolenoid.Value.kReverse);
+    System.out.println("Extend: " +
+      String.valueOf(position) + " " +
+      String.valueOf(RobotMap.frontSolenoid.get()) + " " +
+      String.valueOf(RobotMap.backSolenoid.get()));
     switch(position) {
       case Front:
         RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kReverse);
@@ -43,6 +47,10 @@ public class Climb_SubSystem extends Subsystem {
   }
 
   public void retractClimb(Position position) {
+    System.out.println("Retract: " +
+      String.valueOf(position) + 
+      String.valueOf(RobotMap.frontSolenoid.get()) + 
+      String.valueOf(RobotMap.backSolenoid.get()));
     switch(position) {
       case Front:
         RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kForward);
@@ -55,6 +63,18 @@ public class Climb_SubSystem extends Subsystem {
         RobotMap.backSolenoid.set(DoubleSolenoid.Value.kForward);
         break;
     }
+  }
+  public void extendClimbFront() {
+    RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kReverse);
+  }
+  public void extendClimbBack() {
+    RobotMap.backSolenoid.set(DoubleSolenoid.Value.kReverse);
+  }
+  public void retractClimbFront() {
+    RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kForward);
+  }
+  public void retractClimbBack() {
+    RobotMap.backSolenoid.set(DoubleSolenoid.Value.kForward);
   }
   public void stopClimb(Position position) {
     switch(position) {

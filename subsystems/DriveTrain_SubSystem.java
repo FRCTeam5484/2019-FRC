@@ -41,6 +41,17 @@ public class DriveTrain_SubSystem extends Subsystem {
       driveStraight(new Vector2d(-1, 0), 0.5);
     }*/
     
+    double currentAngle = RobotMap.navX.getAngle();
+    double desiredAngle = Robot.vision.snapToAngle(
+      RobotMap.navX.getAngle(), 
+      new double[]{0, 65, 90, 115, 180, 245, 270, 295, 360}
+      );
+
+    // System.out.println("Current: " + currentAngle);
+    // System.out.println("Snapped: " + desiredAngle);
+    // System.out.println("Turn: " + Robot.vision.getTurnDirection(currentAngle, desiredAngle));
+    //Robot.vision.setLED(LEDState.On);
+
     mecanumDriveTrain.driveCartesian(
       Robot.oi.getDriverOneStickValue(0) * driveSpeed, 
       -Robot.oi.getDriverOneStickValue(1) * driveSpeed, 
@@ -51,16 +62,17 @@ public class DriveTrain_SubSystem extends Subsystem {
 
   public void driveToTarget(double initialAngle) {
     // Turn the Limelight LED On
-    Robot.vision.setLED(LEDState.Off);
-
-    double kFORWARD_SPEED = 0.4; // Default Forward Speed 
-    double kSTRAFE_SPEED = 0.6; // Default Strafing Speed
-    double kTURN_SPEED = 0.2; // Default Turning Speed
+    Robot.vision.setLED(LEDState.On);
 
     // Read Limelight Values Periodically
     double x = Robot.vision.getOffset().x;
     double y = Robot.vision.getOffset().y;
     double area = Robot.vision.getArea();
+    boolean validTarget = Robot.vision.getTarget();
+
+    double kFORWARD_SPEED = (validTarget) ? 0.05 * area : 0.2; // Default Forward Speed 
+    double kSTRAFE_SPEED = 0.02 * x; // Default Strafing Speed
+    //double kTURN_SPEED = 0.4; // Default Turning Speed
 
     // Current Angle within the Scope of 360 Degrees
     double currentAngle = Robot.vision.roundToCircle(RobotMap.navX.getAngle());
@@ -79,37 +91,44 @@ public class DriveTrain_SubSystem extends Subsystem {
       Robot.vision.angleTo2D(desiredAngle) // Desired Angle as a point in 2D Space
       );
 
-    // Turn to Desired Angle
-    if(Math.abs(dist) > 0.2) // If the distance between the Current and Desired angle is > 0.05 keep turning
-    {
-      turn(kTURN_SPEED * (dist / 1.5) * Robot.vision.getTurnDirection(currentAngle, desiredAngle));
-    }
-    else // Center on Target and Drive Forward
-    { 
-      if(area > 0) // If a Target is Visible
+    //Vector2d xOffset = new Vector2d(6, 4);
+    Vector2d xOffset = new Vector2d(18, 16);
+
+    // // // Turn to Desired Angle
+    // if(Math.abs(dist) > 0.05) // If the distance between the Current and Desired angle is > 0.05 keep turning
+    // {
+    //   turn(kTURN_SPEED * Robot.vision.getTurnDirection(currentAngle, desiredAngle));
+    // }
+    // else // Center on Target and Drive Forward
+    // { 
+      if(validTarget) // If a Target is Visible
       { 
-        if(area > 0.1) 
-        { 
-          driveStraight(new Vector2d(0, 1), kFORWARD_SPEED); // If the Area is greater than 0.1 Drive forward
+        if(x > xOffset.x) // Target is Right of center
+        {
+          driveStraight(new Vector2d(1, 0), kSTRAFE_SPEED);
         }
-        else if(x > 3 || x < -3) // If the Target is not centered, Strafe toward it
-        { 
-          if(x > 3) // Target is Right of center
-          {
-            driveStraight(new Vector2d(-1, 0), kSTRAFE_SPEED);
-          }
-          else if (x < -3) // Target is Left of center
-          {
-            driveStraight(new Vector2d(1, 0), kSTRAFE_SPEED);
-          }
+        else if (x < xOffset.y) // Target is Left of center
+        {
+          driveStraight(new Vector2d(-1, 0), kSTRAFE_SPEED);
+        }
+        else {
+          driveStraight(new Vector2d(0, 1), kFORWARD_SPEED);
         }
       }
-    }
+      else {
+        driveStraight(new Vector2d(0, 1), kFORWARD_SPEED);
+      }
+    // }
 
-    System.out.println("Initial: " + Robot.vision.roundToCircle(initialAngle));
-    System.out.println("Current: " + currentAngle);
-    System.out.println("Desired: " + desiredAngle);
-    System.out.println("Turn: " + Robot.vision.getTurnDirection(currentAngle, desiredAngle));
+    System.out.println("Has Target: " + validTarget);
+    System.out.println("X: " + x);
+    System.out.println("Y: " + y);
+    System.out.println("Area: " + area);
+
+    // System.out.println("Initial: " + Robot.vision.roundToCircle(initialAngle));
+    // System.out.println("Current: " + currentAngle);
+    // System.out.println("Desired: " + desiredAngle);
+    // System.out.println("Turn: " + Robot.vision.getTurnDirection(currentAngle, desiredAngle));
   }
 
   public void driveStraight(Vector2d dir, double speed) {
