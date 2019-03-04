@@ -19,7 +19,7 @@ public class c_driveTrain_TeleOpMode extends Command {
 
   @Override
   protected void initialize() {
-    Robot.vision.setLED(LEDState.Off);
+    //Robot.vision.setLED(LEDState.Off);
   }
 
   @Override

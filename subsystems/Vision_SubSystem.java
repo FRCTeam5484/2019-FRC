@@ -74,6 +74,12 @@ public class Vision_SubSystem extends Subsystem {
     
     return new Vector2d(x, y);
   }
+  public double getPipeline() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getDouble(0);
+  }
+  public void setPipeline(int pipeline) {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+  }
   public double roundToCircle(double initialAngle) {;
     return initialAngle % 361;
   }
