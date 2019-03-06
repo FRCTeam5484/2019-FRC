@@ -19,7 +19,7 @@ public class c_lift_MoveToPosition extends Command {
   @Override
   protected void execute() {
     Robot.lift.enable();
-    Robot.lift.moveToPosition(desiredPosition);
+    Robot.lift.setSetpoint(desiredPosition);
   }
 
   @Override

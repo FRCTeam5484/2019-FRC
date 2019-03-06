@@ -20,67 +20,34 @@ public class Lift_SubSystem extends PIDSubsystem {
   public static final SpeedController liftMotor = RobotMap.liftMotor;
 
   public Lift_SubSystem () {
-    super("Lift_SubSystem", 0.1, 0.0, 0.0);
-    setAbsoluteTolerance(3);
-    getPIDController().setContinuous(false);
+      super("Lift_SubSystem", 0.1, 0.0, 0.0);
+      setAbsoluteTolerance(3);
+      getPIDController().setContinuous(false);
   }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new c_lift_TeleOp());
+      setDefaultCommand(new c_lift_TeleOp());
   }
 
-  public void teleOpLift() {
-    if(RobotMap.liftPOT.get() < 0.93)
-    {
-      Robot.bottomCargo.retractArms();
-    }
-    //System.out.println(String.valueOf(RobotMap.liftPOT.get()));
-    getPIDController().disable();
-    double speedValue = -Robot.oi.getDriverTwoStickValue(1);
-    double currentPosition = liftPOT.get();
+  public void moveLift() {
+      double speedValue = -Robot.oi.getDriverTwoStickValue(1);
+      double currentPosition = liftPOT.get();
 
-    //Directional Pad Input
-    switch(Robot.oi.driverTwo.getPOV()) {
-      case 0:
-        moveToPosition(PanelHigh); // Up
-        break;
-      case 90:
-        moveToPosition(PanelMid); // Right
-        break;
-      case 180:
-        moveToPosition(Ground); // Down
-        break;
-      case 270:
-        moveToPosition(BallHuman); // Left
-        break;
-    }
-
-    if(speedValue > .3 && !isTopLimitReached() || speedValue < -.3 && !isBottomLimitReached())
-    {
-      if(speedValue < 0)
+      if(speedValue > .3 && isTopLimitReached() || speedValue < -.3 && isBottomLimitReached())
       {
-        liftMotor.set(-speedValue*.5);
+          getPIDController().disable();
+          liftMotor.set(speedValue);
       }
-      else{
-        liftMotor.set(-speedValue);
+      else if (currentPosition > 90)
+      {
+          getPIDController().disable();
+          liftMotor.set(0);
       }
-      
-    }
-    else if (RobotMap.liftPOT.get() < PanelHigh)
-    {
-      liftMotor.set(0);
-    }
-    else
-    {
-      stopLift();
-    }
-  }
-
-  public void moveToPosition(double desiredPosition) {
-    getPIDController().enable();
-    Robot.lift.enable();
-   	Robot.lift.setSetpoint(desiredPosition);
+      else
+      {
+          stopLift();
+      }
   }
 
   public void raiseLift() {
