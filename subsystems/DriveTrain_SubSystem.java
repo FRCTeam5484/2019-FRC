@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.drive.Vector2d;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.*;
-import frc.robot.subsystems.Vision_SubSystem.LEDState;
 
 public class DriveTrain_SubSystem extends Subsystem {
   public MecanumDrive mecanumDriveTrain = new MecanumDrive(
@@ -25,6 +24,14 @@ public class DriveTrain_SubSystem extends Subsystem {
   }  
 
   public void mecanumDrive() {
+    Robot.vision.setPipeline(1);
+
+    mecanumDriveTrain.driveCartesian(
+      Robot.oi.driverOne.leftStick.getX() * driveSpeed, 
+      -Robot.oi.driverOne.leftStick.getY() * driveSpeed, 
+      Robot.oi.driverOne.rightStick.getX() * driveSpeed, 
+      0
+    ); 
     /*if(Robot.oi.actionBox.getRawButton(1))
     {
       driveStraight(new Vector2d(0, -1), 0.5);
@@ -55,14 +62,6 @@ public class DriveTrain_SubSystem extends Subsystem {
 
     // Normal Camera View
     // NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
-    Robot.vision.setPipeline(1);
-
-    mecanumDriveTrain.driveCartesian(
-      Robot.oi.getDriverOneStickValue(0) * driveSpeed, 
-      -Robot.oi.getDriverOneStickValue(1) * driveSpeed, 
-      Robot.oi.getDriverOneStickValue(4) * driveSpeed, 
-      0
-    ); 
   }
 
   public void driveToTarget(double initialAngle) {

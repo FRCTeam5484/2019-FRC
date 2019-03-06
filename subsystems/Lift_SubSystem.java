@@ -31,7 +31,7 @@ public class Lift_SubSystem extends PIDSubsystem {
   }
 
   public void moveLift() {
-      double speedValue = -Robot.oi.getDriverTwoStickValue(1);
+      double speedValue = -Robot.oi.driverTwo.leftStick.getY();
       double currentPosition = liftPOT.get();
 
       if(speedValue > .3 && isTopLimitReached() || speedValue < -.3 && isBottomLimitReached())

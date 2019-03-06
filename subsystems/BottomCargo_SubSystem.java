@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.c_bottomCargo_TeleOp;
@@ -35,11 +34,11 @@ public class BottomCargo_SubSystem extends Subsystem {
     intakeMotors.set(ControlMode.PercentOutput, .5);
   }
   public void teleOpIntake() {
-    if(Robot.oi.driverOne.getTriggerAxis(Hand.kRight) > 0.25)
+    if(Robot.oi.driverOne.rightTrigger.get())
     {
       grabBall();
     } 
-    else if(Robot.oi.driverOne.getTriggerAxis(Hand.kLeft) > 0.25)
+    else if(Robot.oi.driverOne.leftTrigger.get())
     {
       ejectBall();
     }

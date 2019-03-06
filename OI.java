@@ -1,73 +1,47 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.subsystems.Climb_SubSystem.Position;
+import frc.controllers.DriverXboxController;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Climb_SubSystem.Position;
 
 public class OI {
   // Driver One
-  public XboxController driverOne = new XboxController(0); // Driver One Controller
-  public JoystickButton b_toggleArms = new JoystickButton(driverOne, 2); // B Button
-  public JoystickButton b_retractArm = new JoystickButton(driverOne, 6); // Right Bumper
-  public JoystickButton b_gripPanel = new JoystickButton(driverOne, 5); // Left Bumper
-  public JoystickButton b_autoLineUp = new JoystickButton(driverOne, 1); // A Button
-  public JoystickButton b_resetNavX = new JoystickButton(driverOne, 4); // Y Button
-  public JoystickButton b_endGame = new JoystickButton(driverOne, 8); // Start Button
-  
-  // Driver Two
-  public XboxController driverTwo = new XboxController(1); // Driver Two Controller
-  // Top Cargo
-  public JoystickButton b_topCargo_Grab = new JoystickButton(driverTwo, 6); // Right Bumper
-  public JoystickButton b_topCargo_Eject = new JoystickButton(driverTwo, 5); // Left Bumper
-  // Lift
-  public JoystickButton b_liftHeightLow = new JoystickButton(driverTwo, 1); // A Button
-  public JoystickButton b_liftHeightMid = new JoystickButton(driverTwo, 2); // B Button
-  public JoystickButton b_liftHeightHigh = new JoystickButton(driverTwo, 4); // Y Button
-  // Climb
-  
-  // public JoystickButton b_liftHeightLow_Modifier = new JoystickButton(driverTwo, 1); 
-  // public JoystickButton b_liftHeightMid_Modifer = new JoystickButton(driverTwo, 2); 
-  // public JoystickButton b_liftHeightHigh_Modifier = new JoystickButton(driverTwo, 4); 
-
-  public XboxController actionBox = new XboxController(2);
-  public JoystickButton b_extendClimb_Both = new JoystickButton(actionBox, 1); // A Button
-  public JoystickButton b_extendClimb_Front = new JoystickButton(actionBox, 8); // Start Button
-  public JoystickButton b_extendClimb_Back = new JoystickButton(actionBox, 7); // Back Button
-  public JoystickButton b_retractClimb_Front = new JoystickButton(actionBox, 6); // Right Bumper
-  public JoystickButton b_retractClimb_Back = new JoystickButton(actionBox, 5); // Left Bumper
-  public JoystickButton b_retractClimb_Both = new JoystickButton(actionBox, 2); // B Button
-  public JoystickButton b_stopClimb = new JoystickButton(actionBox, 3); // X Button
+  public DriverXboxController driverOne = new DriverXboxController(0);
+  public DriverXboxController driverTwo = new DriverXboxController(1);
+  public DriverXboxController endGame = new DriverXboxController(2);
 
   public OI() {
     //------ Driver One ------\\
-    b_toggleArms.whenPressed(new c_bottomCargo_ToggleArms());  // Intake Arms
-    b_retractArm.whileHeld(new c_hatchPanel_RetractArm()); // Panel Arm
-    b_gripPanel.whenPressed(new c_hatchPanel_ToggleGrip()); // Grip
-    b_autoLineUp.whileHeld(new c_driveTrain_DriveToTarget());
-    b_resetNavX.whenPressed(new c_navX_Reset());
-    b_endGame.toggleWhenPressed(new c_hatchPanel_HoldArmDown());
+    driverOne.yButton.whenPressed(new c_navX_Reset());
+    driverOne.bButton.whenPressed(new c_bottomCargo_ToggleArms());
+    driverOne.aButton.whileHeld(new c_driveTrain_DriveToTarget());
+    driverOne.rightBumper.whileHeld(new c_hatchPanel_RetractArm());
+    driverOne.leftBumper.whenPressed(new c_hatchPanel_ToggleGrip());
+    driverOne.startButton.toggleWhenPressed(new c_hatchPanel_HoldArmDown());
 
     //------ Driver Two ------\\
-    // Top Cargo
-    b_topCargo_Grab.whileHeld(new c_topCargo_GrabBall()); // Grab
-    b_topCargo_Eject.whileHeld(new c_topCargo_EjectBall()); // Eject
-    // Lift
-    b_liftHeightLow.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallLow)); // Low
-    b_liftHeightMid.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallMidHigh)); // Mid
-    b_liftHeightHigh.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallCargo)); // High
+    driverTwo.rightBumper.whileHeld(new c_topCargo_GrabBall());
+    driverTwo.leftBumper.whileHeld(new c_topCargo_EjectBall());
+    driverTwo.yButton.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallCargo));
+    driverTwo.xButton.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallHuman));
+    driverTwo.bButton.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallMidHigh));
+    driverTwo.aButton.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallLow));
+    driverTwo.Dpad.Up.whenPressed(new c_lift_MoveToPosition(Robot.lift.PanelHigh));
+    driverTwo.Dpad.Right.whenPressed(new c_lift_MoveToPosition(Robot.lift.PanelMid));
+    driverTwo.Dpad.Down.whenPressed(new c_lift_MoveToPosition(Robot.lift.Ground));
 
-    //------ Climb Controller ------\\
-    b_extendClimb_Both.whileHeld(new cExtendBoth()); // Both
-    b_retractClimb_Both.whileHeld(new cRetractBoth());
-    b_extendClimb_Front.whileHeld(new cfrontExtend()); // Front
-    b_extendClimb_Back.whileHeld(new cbackExtend()); // Back
-    b_retractClimb_Front.whileHeld(new cfrontRetract()); // Right Bumper
-    b_retractClimb_Back.whileHeld(new cbackRetract()); // Left Bumper
-    //b_stopClimb.whenPressed(new c_climb_Stop(Position.Both)); // X Button
+    //------ End Game ------\\
+    endGame.xButton.whenPressed(new c_climb_Stop(Position.Both));
+    endGame.bButton.whileHeld(new c_climb_Retract(Position.Both));
+    endGame.aButton.whileHeld(new c_climb_Extend(Position.Both));
+    endGame.selectButton.whileHeld(new c_climb_Extend(Position.Back));
+    endGame.startButton.whileHeld(new c_climb_Extend(Position.Front));
+    endGame.leftBumper.whileHeld(new c_climb_Retract(Position.Back));
+    endGame.rightBumper.whileHeld(new c_climb_Retract(Position.Front));
   }
 
+  /*
   public double getDriverOneStickValue(int axis) {
     if(Math.abs(driverOne.getRawAxis(axis)) < 0.05) { 
       return 0; 
@@ -98,4 +72,5 @@ public class OI {
       return joystick.getRawAxis(axis); 
     }
   }
+  */
 }

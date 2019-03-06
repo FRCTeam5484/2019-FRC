@@ -3,10 +3,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.shuffleboard.*;
+import frc.robot.commands.c_driveTrain_TeleOpMode;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.Vision_SubSystem.LEDState;
 
 public class Robot extends TimedRobot {
   public static DriveTrain_SubSystem driveTrain;
@@ -38,10 +38,6 @@ public class Robot extends TimedRobot {
 
     //Instantiate Operator Interface
     oi = new OI(); //NOT DONE
-    
-    //m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
   }
 
   @Override
@@ -59,7 +55,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    m_autonomousCommand = new c_driveTrain_TeleOpMode();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -81,6 +77,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    SmartDashboard.putNumber("LIFT POT", RobotMap.liftPOT.get());
   }
 
   @Override
