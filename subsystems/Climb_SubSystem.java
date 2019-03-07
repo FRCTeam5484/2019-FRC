@@ -28,8 +28,9 @@ public class Climb_SubSystem extends Subsystem {
   public void initDefaultCommand() {
   }
 
-  public void extendClimb(Position position) {
-    switch(position.toString()) {
+  public void extendClimb(String position) {
+    System.out.println(position);
+    switch(position) {
       case "F":
         RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kReverse);
         break;
@@ -43,8 +44,8 @@ public class Climb_SubSystem extends Subsystem {
     }
   }
 
-  public void retractClimb(Position position) {
-    switch(position.toString()) {
+  public void retractClimb(String position) {
+    switch(position) {
       case "F":
         RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kForward);
         break;
@@ -69,8 +70,8 @@ public class Climb_SubSystem extends Subsystem {
   public void retractClimbBack() {
     RobotMap.backSolenoid.set(DoubleSolenoid.Value.kForward);
   }
-  public void stopClimb(Position position) {
-    switch(position.toString()) {
+  public void stopClimb(String position) {
+    switch(position) {
       case "F":
         RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kOff);
         break;

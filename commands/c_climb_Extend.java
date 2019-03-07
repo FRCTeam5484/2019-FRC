@@ -7,9 +7,9 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Climb_SubSystem.Position;
 
 public class c_climb_Extend extends Command {
-  static Position kPosition;
+  private String kPosition;
 
-  public c_climb_Extend(Position position) {
+  public c_climb_Extend(String position) {
     requires(Robot.climb);
     kPosition = position;
   }

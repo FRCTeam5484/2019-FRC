@@ -60,11 +60,12 @@ public class RobotMap {
     driveTrain_backLeft = new CANSparkMax(4, MotorType.kBrushless);
 
     // SubDrive Train SubSystem
-    subDriveLeft = new TalonSRX(8);
-    subDriveRight = new TalonSRX(7);
+    subDriveLeft = new TalonSRX(7);
+    subDriveRight = new TalonSRX(8);
 
     // Lift SubSystem
     liftMotor = new CANSparkMax(10, MotorType.kBrushless);
+    liftMotor.setInverted(true);
     liftMotorEncoder = new CANEncoder(liftMotor);
     liftPOT = new AnalogPotentiometer(0);
 

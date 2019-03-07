@@ -8,13 +8,8 @@ import frc.robot.RobotMap;
 import frc.robot.commands.c_lift_TeleOp;
 
 public class Lift_SubSystem extends PIDSubsystem {
-  public static double Ground = 0.98;
-  public static double PanelMid = 0.64;
-  public static double PanelHigh = 0.45;
-  public static double BallHuman = 0.93;
-  public static double BallLow = 0.71;
-	public static double BallMidHigh = 0.45;
-  public static double BallCargo = 0.58;
+  private static double Ground = 0.98;
+  private static double PanelHigh = 0.44;
   
   private final AnalogPotentiometer liftPOT = RobotMap.liftPOT;	
   public static final SpeedController liftMotor = RobotMap.liftMotor;
@@ -33,19 +28,21 @@ public class Lift_SubSystem extends PIDSubsystem {
   public void moveLift() {
       double speedValue = -Robot.oi.driverTwo.leftStick.getY();
       double currentPosition = liftPOT.get();
-
-      if(speedValue > .3 && isTopLimitReached() || speedValue < -.3 && isBottomLimitReached())
+      if(speedValue > .3 && !isTopLimitReached() || speedValue < -.3 && !isBottomLimitReached())
       {
+        System.out.println("Function: Manual - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
           getPIDController().disable();
           liftMotor.set(speedValue);
       }
-      else if (currentPosition > 90)
+      else if (currentPosition > 0.44)
       {
+        System.out.println("Function: Stop - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
           getPIDController().disable();
           liftMotor.set(0);
       }
       else
       {
+        System.out.println("Function: Stop - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
           stopLift();
       }
   }

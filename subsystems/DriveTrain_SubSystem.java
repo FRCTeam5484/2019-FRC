@@ -16,7 +16,7 @@ public class DriveTrain_SubSystem extends Subsystem {
       RobotMap.driveTrain_frontRight,
       RobotMap.driveTrain_backRight
   );
-  public Double driveSpeed = 0.7;
+  public Double driveSpeed = 1.0;
 
   @Override
   public void initDefaultCommand() {

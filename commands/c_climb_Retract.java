@@ -6,9 +6,9 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Climb_SubSystem.Position;
 
 public class c_climb_Retract extends Command {
-  static Position kPosition;
+  private String kPosition;
   
-  public c_climb_Retract(Position position) {
+  public c_climb_Retract(String position) {
     requires(Robot.climb);
     kPosition = position;
   }

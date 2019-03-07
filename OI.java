@@ -1,11 +1,19 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import frc.controllers.DriverXboxController;
+import frc.robot.controllers.DriverXboxController;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Climb_SubSystem.Position;
 
 public class OI {
+  double Ground = 0.98;
+  double PanelMid = 0.64;
+  double PanelHigh = 0.45;
+  double BallHuman = 0.93;
+  double BallLow = 0.71;
+	double BallMidHigh = 0.44;
+  double BallCargo = 0.58;
+
+
   // Driver One
   public DriverXboxController driverOne = new DriverXboxController(0);
   public DriverXboxController driverTwo = new DriverXboxController(1);
@@ -23,54 +31,21 @@ public class OI {
     //------ Driver Two ------\\
     driverTwo.rightBumper.whileHeld(new c_topCargo_GrabBall());
     driverTwo.leftBumper.whileHeld(new c_topCargo_EjectBall());
-    driverTwo.yButton.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallCargo));
-    driverTwo.xButton.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallHuman));
-    driverTwo.bButton.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallMidHigh));
-    driverTwo.aButton.whenPressed(new c_lift_MoveToPosition(Robot.lift.BallLow));
-    driverTwo.Dpad.Up.whenPressed(new c_lift_MoveToPosition(Robot.lift.PanelHigh));
-    driverTwo.Dpad.Right.whenPressed(new c_lift_MoveToPosition(Robot.lift.PanelMid));
-    driverTwo.Dpad.Down.whenPressed(new c_lift_MoveToPosition(Robot.lift.Ground));
+    driverTwo.yButton.whenPressed(new c_lift_MoveToPosition(BallCargo));
+    driverTwo.xButton.whenPressed(new c_lift_MoveToPosition(BallHuman));
+    driverTwo.bButton.whenPressed(new c_lift_MoveToPosition(BallMidHigh));
+    driverTwo.aButton.whenPressed(new c_lift_MoveToPosition(BallLow));
+    driverTwo.Dpad.Up.whenPressed(new c_lift_MoveToPosition(PanelHigh));
+    driverTwo.Dpad.Right.whenPressed(new c_lift_MoveToPosition(PanelMid));
+    driverTwo.Dpad.Down.whenPressed(new c_lift_MoveToPosition(Ground));
 
     //------ End Game ------\\
-    endGame.xButton.whenPressed(new c_climb_Stop(Position.Both));
-    endGame.bButton.whileHeld(new c_climb_Retract(Position.Both));
-    endGame.aButton.whileHeld(new c_climb_Extend(Position.Both));
-    endGame.selectButton.whileHeld(new c_climb_Extend(Position.Back));
-    endGame.startButton.whileHeld(new c_climb_Extend(Position.Front));
-    endGame.leftBumper.whileHeld(new c_climb_Retract(Position.Back));
-    endGame.rightBumper.whileHeld(new c_climb_Retract(Position.Front));
+    endGame.xButton.whenPressed(new c_climb_Stop("FB"));
+    endGame.bButton.whileHeld(new c_climb_Retract("FB"));
+    endGame.aButton.whileHeld(new c_climb_Extend("FB"));
+    endGame.selectButton.whileHeld(new c_climb_Extend("B"));
+    endGame.startButton.whileHeld(new c_climb_Extend("F"));
+    endGame.leftBumper.whileHeld(new c_climb_Retract("B"));
+    endGame.rightBumper.whileHeld(new c_climb_Retract("F"));
   }
-
-  /*
-  public double getDriverOneStickValue(int axis) {
-    if(Math.abs(driverOne.getRawAxis(axis)) < 0.05) { 
-      return 0; 
-    }
-    else { 
-      return driverOne.getRawAxis(axis); 
-    }
-  }
-
-  public double getDriverTwoStickValue(int axis) {
-    if(Math.abs(driverTwo.getRawAxis(axis)) < 0.05) { 
-      return 0; 
-    }
-    else { 
-      return driverTwo.getRawAxis(axis);
-    }
-  }
-
-  public double getStickValue (Joystick joystick, int axis) {
-    return joystick.getRawAxis(axis);
-  }
-
-  public double getStickValue (Joystick joystick, int axis, double deadZone) {
-    if(Math.abs(joystick.getRawAxis(axis)) < deadZone) { 
-      return 0;
-    }
-    else { 
-      return joystick.getRawAxis(axis); 
-    }
-  }
-  */
 }

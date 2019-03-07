@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.*;
 import frc.robot.RobotMap;
@@ -19,7 +18,7 @@ public class SubDrive_SubSystem extends Subsystem {
   }
 
   public void teleOpSubDrive() {
-    subDriveLeft.set(ControlMode.PercentOutput, -Robot.oi.endGame.rightStick.getY());
-    subDriveRight.set(ControlMode.PercentOutput, -Robot.oi.endGame.leftStick.getY());
+    subDriveLeft.set(ControlMode.PercentOutput, Robot.oi.endGame.leftStick.getY());
+    subDriveRight.set(ControlMode.PercentOutput, -Robot.oi.endGame.rightStick.getY());
   }
 }

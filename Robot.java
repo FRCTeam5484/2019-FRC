@@ -77,7 +77,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    SmartDashboard.putNumber("LIFT POT", RobotMap.liftPOT.get());
   }
 
   @Override
