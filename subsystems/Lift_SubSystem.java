@@ -9,7 +9,7 @@ import frc.robot.commands.c_lift_TeleOp;
 
 public class Lift_SubSystem extends PIDSubsystem {
   private static double Ground = 0.98;
-  private static double PanelHigh = 0.44;
+  private static double PanelHigh = 0.45;
   
   private final AnalogPotentiometer liftPOT = RobotMap.liftPOT;	
   public static final SpeedController liftMotor = RobotMap.liftMotor;

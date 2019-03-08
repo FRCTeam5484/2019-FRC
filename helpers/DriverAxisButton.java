@@ -1,8 +1,8 @@
 
-package frc.robot.controllers;
+package frc.robot.helpers;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import frc.robot.controllers.DriverXboxController.XboxAxis;
+import frc.robot.helpers.DriverXboxController.XboxAxis;
 
 public class DriverAxisButton extends Button {
 

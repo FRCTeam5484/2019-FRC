@@ -1,8 +1,8 @@
-package frc.robot.controllers;
+package frc.robot.helpers;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.controllers.DriverAxisButton.ThresholdType;
-import frc.robot.controllers.DriverXboxController.XboxAxis;
-import frc.robot.controllers.DriverXboxController.XboxDpad;
+import frc.robot.helpers.DriverAxisButton.ThresholdType;
+import frc.robot.helpers.DriverXboxController.XboxAxis;
+import frc.robot.helpers.DriverXboxController.XboxDpad;
 
 public class DriverDpad {
 	public final Joystick joy;

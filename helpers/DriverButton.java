@@ -1,8 +1,8 @@
-package frc.robot.controllers;
+package frc.robot.helpers;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.controllers.DriverXboxController.XboxButton;
+import frc.robot.helpers.DriverXboxController.XboxButton;
 
 public class DriverButton extends JoystickButton {
 	public DriverButton(GenericHID joystick, int buttonNumber) {

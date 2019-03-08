@@ -1,8 +1,8 @@
 
-package frc.robot.controllers;
+package frc.robot.helpers;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.controllers.DriverAxisButton.ThresholdType;
+import frc.robot.helpers.DriverAxisButton.ThresholdType;
 
 public class DriverXboxController extends Joystick {
     public DriverXboxController(int port){
