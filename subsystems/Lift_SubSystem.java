@@ -26,35 +26,21 @@ public class Lift_SubSystem extends PIDSubsystem {
   }
 
   public void moveLift() {
-      //System.out.println("POT Value: " + RobotMap.liftPOT.get());
-
-      double speedValue = -Robot.oi.driverTwo.leftStick.getY();
-      double currentPosition = liftPOT.get();
-      if(currentPosition < 0.4)
-      {
-        System.out.println("! ! ! ! ! ! ! ! ! ! ! ! !");
-        System.out.println("!!!!!!  POT Unplugged   !!!!!");
-        System.out.println("! ! ! ! ! ! ! ! ! ! ! ! !");
+    double speedValue = -Robot.oi.driverTwo.leftStick.getY();
+    double currentPosition = liftPOT.get();
+    if(speedValue > .5 && !isTopLimitReached() || speedValue < -.3 && !isBottomLimitReached())
+    {
+        getPIDController().disable();
         liftMotor.set(speedValue);
-      }
-      else{
-        if(speedValue > .3 && !isTopLimitReached() || speedValue < -.3 && !isBottomLimitReached())
-        {
-            // System.out.println("Function: Manual - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
-            getPIDController().disable();
-            liftMotor.set(speedValue);
-        }
-        else if (currentPosition > 0.44)
-        {
-          // System.out.println("Function: Stop - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
-            getPIDController().disable();
-            liftMotor.set(0);
-        }
-        else
-        {
-          // System.out.println("Function: Stop - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
-            stopLift();
-        }
+    }
+    else if (currentPosition > 0.44)
+    {
+        getPIDController().disable();
+        liftMotor.set(0);
+    }
+    else
+    {
+      stopLift();
     }
   }
 
