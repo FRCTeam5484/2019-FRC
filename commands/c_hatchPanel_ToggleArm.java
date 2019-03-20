@@ -33,5 +33,6 @@ public class c_hatchPanel_ToggleArm extends Command {
 
   @Override
   protected void interrupted() {
+    end();
   }
 }

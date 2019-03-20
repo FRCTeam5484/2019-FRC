@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.c_hatchPanel_DeployArm;
+import frc.robot.commands.c_hatchPanel_RetractArm;
 
 public class HatchPanel_SubSystem extends Subsystem {
   public Solenoid panelGrip = RobotMap.panelGrip;
@@ -11,7 +12,7 @@ public class HatchPanel_SubSystem extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new c_hatchPanel_DeployArm());
+    //setDefaultCommand(new c_hatchPanel_RetractArm());
   }
 
   public void grabPanel() {

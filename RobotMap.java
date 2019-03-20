@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -32,10 +33,13 @@ public class RobotMap {
   public static AnalogPotentiometer liftPOT;
   public static double lift_bottomLimit = 0;
   public static double lift_topLimit = 100;
+  public static DigitalInput liftBottomLimitSwitch;
+  public static DigitalInput liftTopLimitSwitch;
 
   // Cargo Bottom Intake SubSystem
   public static Solenoid intakeArms;
-  public static VictorSPX intakeMotors;
+  public static VictorSPX intakeMotor1;
+  public static VictorSPX intakeMotor2;
   
   // Cargo Top Intake SubSystem
   public static TalonSRX topIntakeMotor;
@@ -68,10 +72,13 @@ public class RobotMap {
     liftMotor.setInverted(true);
     liftMotorEncoder = new CANEncoder(liftMotor);
     liftPOT = new AnalogPotentiometer(0);
+    liftBottomLimitSwitch = new DigitalInput(0);
+    liftTopLimitSwitch = new DigitalInput(1);
 
     // Cargo Bottom Intake SubSystem
     intakeArms = new Solenoid(6);
-    intakeMotors = new VictorSPX(6);
+    intakeMotor1 = new VictorSPX(6);
+    intakeMotor2 = new VictorSPX(10);
     panelArm = new Solenoid(5);
     panelGrip = new Solenoid(4);
     

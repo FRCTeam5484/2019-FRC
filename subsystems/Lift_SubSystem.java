@@ -26,25 +26,36 @@ public class Lift_SubSystem extends PIDSubsystem {
   }
 
   public void moveLift() {
+      //System.out.println("POT Value: " + RobotMap.liftPOT.get());
+
       double speedValue = -Robot.oi.driverTwo.leftStick.getY();
       double currentPosition = liftPOT.get();
-      if(speedValue > .3 && !isTopLimitReached() || speedValue < -.3 && !isBottomLimitReached())
+      if(currentPosition < 0.4)
       {
-        System.out.println("Function: Manual - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
-          getPIDController().disable();
-          liftMotor.set(speedValue);
+        System.out.println("! ! ! ! ! ! ! ! ! ! ! ! !");
+        System.out.println("!!!!!!  POT Unplugged   !!!!!");
+        System.out.println("! ! ! ! ! ! ! ! ! ! ! ! !");
+        liftMotor.set(speedValue);
       }
-      else if (currentPosition > 0.44)
-      {
-        System.out.println("Function: Stop - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
-          getPIDController().disable();
-          liftMotor.set(0);
-      }
-      else
-      {
-        System.out.println("Function: Stop - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
-          stopLift();
-      }
+      else{
+        if(speedValue > .3 && !isTopLimitReached() || speedValue < -.3 && !isBottomLimitReached())
+        {
+            // System.out.println("Function: Manual - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
+            getPIDController().disable();
+            liftMotor.set(speedValue);
+        }
+        else if (currentPosition > 0.44)
+        {
+          // System.out.println("Function: Stop - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
+            getPIDController().disable();
+            liftMotor.set(0);
+        }
+        else
+        {
+          // System.out.println("Function: Stop - Speed: " + speedValue + " POT: " + RobotMap.liftPOT.get());
+            stopLift();
+        }
+    }
   }
 
   public void raiseLift() {
@@ -61,7 +72,8 @@ public class Lift_SubSystem extends PIDSubsystem {
 
   public static boolean isTopLimitReached()
   {
-    if(RobotMap.liftPOT.get() <= PanelHigh) {
+    //if(RobotMap.liftPOT.get() <= PanelHigh) {
+    if(RobotMap.liftTopLimitSwitch.get()){
       return true;
     }
     else {
@@ -70,7 +82,8 @@ public class Lift_SubSystem extends PIDSubsystem {
   }
   public static boolean isBottomLimitReached()
   {
-    if(RobotMap.liftPOT.get() >= Ground) {
+    //if(RobotMap.liftPOT.get() >= Ground) {
+    if(RobotMap.liftBottomLimitSwitch.get()){
       return true;
     }
     else {

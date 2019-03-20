@@ -29,7 +29,7 @@ public class Climb_SubSystem extends Subsystem {
   }
 
   public void extendClimb(String position) {
-    System.out.println(position);
+    //System.out.println(position);
     switch(position) {
       case "F":
         RobotMap.frontSolenoid.set(DoubleSolenoid.Value.kReverse);

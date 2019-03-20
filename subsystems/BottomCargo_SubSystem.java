@@ -10,7 +10,8 @@ import frc.robot.commands.c_bottomCargo_TeleOp;
 import frc.robot.Robot;
 
 public class BottomCargo_SubSystem extends Subsystem {
-  public VictorSPX intakeMotors = RobotMap.intakeMotors;
+  public VictorSPX intakeMotor1 = RobotMap.intakeMotor1;
+  public VictorSPX intakeMotor2 = RobotMap.intakeMotor2;
   public Solenoid intakeArms = RobotMap.intakeArms;
   
   @Override
@@ -25,13 +26,16 @@ public class BottomCargo_SubSystem extends Subsystem {
     intakeArms.set(false);
   }
   public void stopMotors() {
-    intakeMotors.set(ControlMode.PercentOutput, 0);
+    intakeMotor1.set(ControlMode.PercentOutput, 0);
+    intakeMotor2.set(ControlMode.PercentOutput, 0);
   }
   public void grabBall(){
-    intakeMotors.set(ControlMode.PercentOutput, -.5);
+    intakeMotor1.set(ControlMode.PercentOutput, -.5);
+    intakeMotor2.set(ControlMode.PercentOutput, -.5);
   }
   public void ejectBall(){
-    intakeMotors.set(ControlMode.PercentOutput, .5);
+    intakeMotor1.set(ControlMode.PercentOutput, .5);
+    intakeMotor2.set(ControlMode.PercentOutput, .5);
   }
   public void teleOpIntake() {
     if(Robot.oi.driverOne.rightTrigger.get())

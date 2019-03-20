@@ -25,7 +25,7 @@ public class DriveTrain_SubSystem extends Subsystem {
 
   public void mecanumDrive() {
     Robot.vision.setPipeline(1);
-
+    //System.out.println("x:" + Robot.oi.driverOne.leftStick.getX() + " y:" + Robot.oi.driverOne.leftStick.getY());
     mecanumDriveTrain.driveCartesian(
       Robot.oi.driverOne.leftStick.getX() * driveSpeed, 
       -Robot.oi.driverOne.leftStick.getY() * driveSpeed, 
@@ -37,19 +37,25 @@ public class DriveTrain_SubSystem extends Subsystem {
   public void alignToTarget() {
     double Kp = -0.03;
 
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+    // Values range from 0.6 - 1.2
+
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
     Robot.vision.setPipeline(0);
     
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
+    double speedModifier = 4;
+
     if(tv < 1.0)
     {
-      mecanumDriveTrain.driveCartesian(0.2, -Robot.oi.driverOne.leftStick.getY()*driveSpeed, 0, 0.0);
+      System.out.println("I Can't See It");
+      mecanumDriveTrain.driveCartesian(0.2, -Robot.oi.driverOne.leftStick.getY() * driveSpeed, 0, 0.0);
     }
     else
     {
-      mecanumDriveTrain.driveCartesian((tx/-26)*driveSpeed, -Robot.oi.driverOne.leftStick.getY()*driveSpeed, 0, 0.0);
+      System.out.println("I See It: " + tx);
+      mecanumDriveTrain.driveCartesian((tx/-26) * driveSpeed * speedModifier, -Robot.oi.driverOne.leftStick.getY() * driveSpeed, 0, 0.0);
     }
   }
 

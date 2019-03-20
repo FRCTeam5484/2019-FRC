@@ -24,6 +24,7 @@ public class OI {
     driverOne.bButton.whenPressed(new c_bottomCargo_ToggleArms());
     driverOne.aButton.whileHeld(new c_driveTrain_DriveToTarget());
     driverOne.rightBumper.whileHeld(new c_hatchPanel_RetractArm());
+    driverOne.rightBumper.whenReleased(new c_hatchPanel_DeployArm());
     driverOne.leftBumper.whenPressed(new c_hatchPanel_ToggleGrip());
     driverOne.startButton.toggleWhenPressed(new c_hatchPanel_HoldArmDown());
 
